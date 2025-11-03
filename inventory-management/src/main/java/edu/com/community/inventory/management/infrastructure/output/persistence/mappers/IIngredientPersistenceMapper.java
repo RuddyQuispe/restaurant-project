@@ -1,7 +1,7 @@
-package edu.com.community.inventory.management.infrastructure.output.database.mappers;
+package edu.com.community.inventory.management.infrastructure.output.persistence.mappers;
 
 import edu.com.community.inventory.management.application.input.dto.Ingredient;
-import edu.com.community.inventory.management.infrastructure.output.database.entities.IngredientEntity;
+import edu.com.community.inventory.management.infrastructure.output.persistence.entities.IngredientEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;

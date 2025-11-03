@@ -1,6 +1,7 @@
 package edu.com.community.inventory.management.infrastructure.input.rest.controllers;
 
 import edu.com.community.inventory.management.application.input.IGenericServicePort;
+import edu.com.community.inventory.management.domain.exception.ModelNotFoundException;
 import edu.com.community.inventory.management.infrastructure.input.rest.mappers.IGenericRestMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ public abstract class IGenericController<DTO, ID, REQUEST, RESPONSE> {
                                              @NotNull(message = "campo id es requerido") ID id) {
         RESPONSE response = this.servicePort.findById(id)
                 .map(this.mapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Objeto con id %s no encontrado".formatted(id)));
+                .orElseThrow(() -> new ModelNotFoundException("Objeto con id %s no encontrado".formatted(id)));
         return ResponseEntity.ok(response);
     }
 

@@ -1,6 +1,6 @@
-package edu.com.community.inventory.management.infrastructure.output.database.repositories;
+package edu.com.community.inventory.management.infrastructure.output.persistence.repositories;
 
-import edu.com.community.inventory.management.infrastructure.output.database.entities.IngredientEntity;
+import edu.com.community.inventory.management.infrastructure.output.persistence.entities.IngredientEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

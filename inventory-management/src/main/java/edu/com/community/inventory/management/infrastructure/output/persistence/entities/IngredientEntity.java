@@ -1,4 +1,4 @@
-package edu.com.community.inventory.management.infrastructure.output.database.entities;
+package edu.com.community.inventory.management.infrastructure.output.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

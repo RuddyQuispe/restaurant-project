@@ -1,12 +1,12 @@
-package edu.com.community.inventory.management.infrastructure.output.database.imp;
+package edu.com.community.inventory.management.infrastructure.output.persistence.imp;
 
 import edu.com.community.inventory.management.application.input.dto.Ingredient;
 import edu.com.community.inventory.management.application.output.IIngredientPersistencePort;
 import edu.com.community.inventory.management.domain.helpers.PaginatedData;
 import edu.com.community.inventory.management.domain.helpers.Paginator;
-import edu.com.community.inventory.management.infrastructure.output.database.entities.IngredientEntity;
-import edu.com.community.inventory.management.infrastructure.output.database.mappers.IIngredientPersistenceMapper;
-import edu.com.community.inventory.management.infrastructure.output.database.repositories.IIngredientRepository;
+import edu.com.community.inventory.management.infrastructure.output.persistence.entities.IngredientEntity;
+import edu.com.community.inventory.management.infrastructure.output.persistence.mappers.IIngredientPersistenceMapper;
+import edu.com.community.inventory.management.infrastructure.output.persistence.repositories.IIngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,8 @@ public class IngredientPersistencePortImp implements IIngredientPersistencePort 
     @Override
     public Ingredient save(Ingredient ingredient) {
         IngredientEntity entity = this.mapper.toEntity(ingredient);
+        entity.setLastTime(LocalDateTime.now());
+        entity.setLastUser("ADM");
         entity = this.repository.save(entity);
         return this.mapper.toDto(entity);
     }
