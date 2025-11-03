@@ -6,6 +6,7 @@ import edu.com.community.inventory.management.infrastructure.input.rest.dto.Ingr
 import edu.com.community.inventory.management.infrastructure.input.rest.dto.IngredientResponse;
 import edu.com.community.inventory.management.infrastructure.input.rest.mappers.IIngredientRestInfrastructureMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/inventory/v1/ingredient")
 public class IngredientController extends IGenericController<Ingredient, Integer, IngredientRequest, IngredientResponse> {
 
+    @Autowired
     public IngredientController(IIngredientServicePort ingredientServicePort,
                                 IIngredientRestInfrastructureMapper ingredientMapper) {
         super(ingredientServicePort, ingredientMapper);

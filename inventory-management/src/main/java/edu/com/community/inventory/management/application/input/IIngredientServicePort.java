@@ -1,6 +1,5 @@
 package edu.com.community.inventory.management.application.input;
 
-
 import edu.com.community.inventory.management.application.input.mappers.IGenericApplicationMapper;
 import edu.com.community.inventory.management.application.output.IGenericPersistencePort;
 import edu.com.community.inventory.management.application.input.dto.Ingredient;

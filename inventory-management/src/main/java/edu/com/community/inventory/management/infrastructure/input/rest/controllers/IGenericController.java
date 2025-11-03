@@ -4,22 +4,25 @@ import edu.com.community.inventory.management.application.input.IGenericServiceP
 import edu.com.community.inventory.management.infrastructure.input.rest.mappers.IGenericRestMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
 public abstract class IGenericController<DTO, ID, REQUEST, RESPONSE> {
     protected final IGenericServicePort<DTO, ID> servicePort;
     protected final IGenericRestMapper<REQUEST, RESPONSE, DTO> mapper;
+
+    public IGenericController(IGenericServicePort<DTO, ID> servicePort, IGenericRestMapper<REQUEST, RESPONSE, DTO> mapper) {
+        this.servicePort = servicePort;
+        this.mapper = mapper;
+    }
 
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RESPONSE> findById(@RequestParam("id")
                                              @NotNull(message = "campo id es requerido") ID id) {
         RESPONSE response = this.servicePort.findById(id)
                 .map(this.mapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Objeto no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Objeto con id %s no encontrado".formatted(id)));
         return ResponseEntity.ok(response);
     }
 

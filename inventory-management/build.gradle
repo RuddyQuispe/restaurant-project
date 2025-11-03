@@ -2,6 +2,9 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.7'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'com.github.spotbugs' version '6.0.0'
 }
 
 group = 'edu.com.community'
@@ -26,27 +29,31 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
-    compileOnly 'org.mapstruct:mapstruct:1.6.3'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0-M1'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0'
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation 'org.mockito:mockito-core:5.20.0'
     // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
     testImplementation 'org.mockito:mockito-junit-jupiter:5.20.0'
+    // https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle
+    checkstyle 'com.puppycrawl.tools:checkstyle:12.1.1'
 }
 
 tasks.named('test') {
@@ -73,9 +80,25 @@ artifacts {
 javadoc {
     options {
         encoding = 'UTF-8'
-        source = '17'
+        source = '21'
         links('https://docs.spring.io/spring-framework/docs/current/javadoc-api/')
         links('https://docs.oracle.com/en/java/javase/17/docs/api/')
         addStringOption('Xdoclint:none', '-quiet')
     }
+}
+
+jacoco {
+    toolVersion = "0.8.14"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+    }
+}
+
+spotbugs {
+    excludeFilter = file("config/spotbugs-exclude.xml")
 }

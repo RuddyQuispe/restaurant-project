@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Ignorar EI_EXPOSE_REP2 en constructores de controladores Spring -->
+    <Match>
+        <Class name="~.*Controller" />
+        <Bug pattern="EI_EXPOSE_REP2" />
+    </Match>
+</FindBugsFilter>
